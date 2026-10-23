@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6v2n7x8wanderer"]
+
+[ext_resource type="Texture2D" uid="uid://buvoo0jhssvnl" path="res://assets/wanderer.png" id="1_sprite"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wanderer"]
+size = Vector2(16, 10)
+
+[node name="Wanderer" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -23)
+texture = ExtResource("1_sprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_wanderer")
