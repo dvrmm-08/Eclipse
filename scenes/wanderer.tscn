@@ -1,17 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6v2n7x8wanderer"]
+[gd_scene format=3 uid="uid://cqij6o2d116u0"]
 
+[ext_resource type="Script" uid="uid://3ngcq2v6icur" path="res://scenes/wanderer.gd" id="1_q5ngb"]
 [ext_resource type="Texture2D" uid="uid://buvoo0jhssvnl" path="res://assets/wanderer.png" id="1_sprite"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wanderer"]
 size = Vector2(16, 10)
 
-[node name="Wanderer" type="CharacterBody2D"]
+[node name="Wanderer" type="CharacterBody2D" unique_id=335814468]
+script = ExtResource("1_q5ngb")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1606418768]
 texture_filter = 1
 position = Vector2(0, -23)
 texture = ExtResource("1_sprite")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=723605775]
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_wanderer")
