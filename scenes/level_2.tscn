@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/level_2.gd" id="1_level2"]
+[ext_resource type="Script" path="res://scripts/level_grid.gd" id="2_grid"]
+[ext_resource type="PackedScene" path="res://scenes/interactable.tscn" id="3_inter"]
+[ext_resource type="PackedScene" path="res://scenes/laser_statue.tscn" id="4_laser"]
+[ext_resource type="PackedScene" path="res://scenes/wanderer.tscn" id="5_wanderer"]
+[ext_resource type="PackedScene" path="res://scenes/shadow.tscn" id="6_shadow"]
+[ext_resource type="PackedScene" path="res://scenes/ui_overlay.tscn" id="7_ui"]
+
+[node name="Level2" type="Node2D"]
+script = ExtResource("1_level2")
+
+[node name="LevelGrid" type="Node2D" parent="."]
+script = ExtResource("2_grid")
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="Gate" parent="Objects" instance=ExtResource("3_inter")]
+
+[node name="Lever" parent="Objects" instance=ExtResource("3_inter")]
+
+[node name="Tablet" parent="Objects" instance=ExtResource("3_inter")]
+
+[node name="LaserStatue" parent="Objects" instance=ExtResource("4_laser")]
+
+[node name="Wanderer" parent="." instance=ExtResource("5_wanderer")]
+
+[node name="Shadow" parent="." instance=ExtResource("6_shadow")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="UIOverlay" parent="." instance=ExtResource("7_ui")]

@@ -6,14 +6,17 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wanderer"]
 size = Vector2(16, 10)
 
-[node name="Wanderer" type="CharacterBody2D" unique_id=335814468]
+[node name="Wanderer" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_q5ngb")
+is_controlled = true
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1606418768]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -23)
 texture = ExtResource("1_sprite")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=723605775]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_wanderer")

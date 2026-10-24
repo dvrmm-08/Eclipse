@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/laser_statue.gd" id="1_laser"]
+[ext_resource type="Texture2D" path="res://assets/interactables.png" id="2_texture"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_statue"]
+size = Vector2(24, 24)
+
+[node name="LaserStatue" type="StaticBody2D"]
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1_laser")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -16)
+texture = ExtResource("2_texture")
+hframes = 7
+frame = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_statue")
+
+[node name="EmitterPoint" type="Marker2D" parent="."]
+position = Vector2(0, -22)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, -22)
+target_position = Vector2(0, 400)
+collision_mask = 5
+
+[node name="LaserLine" type="Line2D" parent="."]
+width = 4.0
+default_color = Color(1, 0.15, 0.2, 0.95)
+begin_cap_mode = 2
+end_cap_mode = 2

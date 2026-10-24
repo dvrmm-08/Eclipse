@@ -1,8 +1,14 @@
 [gd_scene format=3 uid="uid://d3l34wjraxt88"]
 
+[ext_resource type="Script" uid="uid://cdmkgajlkb1u7" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://cqij6o2d116u0" path="res://scenes/wanderer.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" path="res://scenes/shadow.tscn" id="3_sugp2"]
 
-[node name="Node2D" type="Node2D" unique_id=646611618]
+[node name="Main" type="Node2D" unique_id=434739046]
+script = ExtResource("1_0wfyh")
 
-[node name="Wanderer" parent="." unique_id=335814468 instance=ExtResource("1_o5qli")]
-position = Vector2(338, 384)
+[node name="Wanderer" parent="." unique_id=521892283 instance=ExtResource("1_o5qli")]
+position = Vector2(200, 200)
+
+[node name="Shadow" parent="." unique_id=1288756331 instance=ExtResource("3_sugp2")]
+position = Vector2(200, 200)

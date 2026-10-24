@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scenes/wanderer.gd" id="1_jqplm"]
+[ext_resource type="Texture2D" path="res://assets/shadow.png" id="2_jqplm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shadow"]
+size = Vector2(16, 10)
+
+[node name="Shadow" type="CharacterBody2D"]
+visible = false
+collision_layer = 8
+collision_mask = 17
+script = ExtResource("1_jqplm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -23)
+texture = ExtResource("2_jqplm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_shadow")

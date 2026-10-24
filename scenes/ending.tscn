@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/ending.gd" id="1_ending"]
+[ext_resource type="Script" path="res://scripts/level_grid.gd" id="2_grid"]
+[ext_resource type="PackedScene" path="res://scenes/wanderer.tscn" id="3_wanderer"]
+[ext_resource type="PackedScene" path="res://scenes/shadow.tscn" id="4_shadow"]
+[ext_resource type="PackedScene" path="res://scenes/ui_overlay.tscn" id="5_ui"]
+
+[node name="Ending" type="Node2D"]
+script = ExtResource("1_ending")
+
+[node name="LevelGrid" type="Node2D" parent="."]
+script = ExtResource("2_grid")
+
+[node name="Wanderer" parent="." instance=ExtResource("3_wanderer")]
+
+[node name="Shadow" parent="." instance=ExtResource("4_shadow")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="UIOverlay" parent="." instance=ExtResource("5_ui")]

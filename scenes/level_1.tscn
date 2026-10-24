@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/level_1.gd" id="1_level1"]
+[ext_resource type="Script" path="res://scripts/level_grid.gd" id="2_grid"]
+[ext_resource type="PackedScene" path="res://scenes/interactable.tscn" id="3_inter"]
+[ext_resource type="PackedScene" path="res://scenes/wanderer.tscn" id="4_wanderer"]
+[ext_resource type="PackedScene" path="res://scenes/shadow.tscn" id="5_shadow"]
+[ext_resource type="PackedScene" path="res://scenes/ui_overlay.tscn" id="6_ui"]
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_level1")
+
+[node name="LevelGrid" type="Node2D" parent="."]
+script = ExtResource("2_grid")
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="Gate" parent="Objects" instance=ExtResource("3_inter")]
+
+[node name="Lever" parent="Objects" instance=ExtResource("3_inter")]
+
+[node name="Tablet" parent="Objects" instance=ExtResource("3_inter")]
+
+[node name="Note" parent="Objects" instance=ExtResource("3_inter")]
+
+[node name="Wanderer" parent="." instance=ExtResource("4_wanderer")]
+
+[node name="Shadow" parent="." instance=ExtResource("5_shadow")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 192)
+
+[node name="UIOverlay" parent="." instance=ExtResource("6_ui")]

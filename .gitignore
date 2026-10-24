@@ -1,0 +1,8 @@
+# Godot 4 .gitignore
+.godot/
+*.translation
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
