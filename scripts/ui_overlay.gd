@@ -30,6 +30,8 @@ func _ready() -> void:
 		message_box.visible = false
 	if level_banner:
 		level_banner.visible = false
+	if controls_label:
+		controls_label.text = "WASD: Move | P: Switch Form | E: Interact | M: Mute | ESC: Menu | R: Restart"
 	update_dimension(false)
 
 func _process(delta: float) -> void:

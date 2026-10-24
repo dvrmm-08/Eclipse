@@ -35,10 +35,14 @@ func _ready() -> void:
 	
 	camera.position = wanderer.position
 	
+	if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
+		var audio_mgr = get_tree().root.get_node("AudioManager")
+		audio_mgr.play_music()
+
 	if ui and ui.has_method("show_banner"):
 		ui.show_banner("EPILOGUE", "THE REFLECTION")
 	if ui and ui.has_method("show_message"):
-		ui.show_message("You escaped through the gate... but your shadow moves in reverse. Press [R] to Restart.", 12.0)
+		ui.show_message("You escaped through the gate... but your shadow moves in reverse. [R] Restart | [ESC] Title", 15.0)
 
 func _physics_process(delta: float) -> void:
 	if camera and wanderer:
@@ -57,3 +61,12 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("restart"):
 		get_tree().change_scene_to_file("res://scenes/level_1.tscn")
+	elif event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_ESCAPE:
+			get_tree().change_scene_to_file("res://scenes/title_screen.tscn")
+		elif event.keycode == KEY_M:
+			if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
+				var audio_mgr = get_tree().root.get_node("AudioManager")
+				var muted = audio_mgr.toggle_mute()
+				if ui and ui.has_method("show_message"):
+					ui.show_message("Audio: " + ("MUTED" if muted else "UNMUTED"), 1.5)

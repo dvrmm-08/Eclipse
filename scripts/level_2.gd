@@ -116,6 +116,10 @@ func _run_ending_scare() -> void:
 	# 4. Cinematic pause then autonomous step forward
 	await get_tree().create_timer(0.6).timeout
 
+	if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
+		var audio_mgr = get_tree().root.get_node("AudioManager")
+		audio_mgr.play_reveal_sfx()
+
 	if shadow and wanderer:
 		var scare_tween = create_tween()
 		scare_tween.set_parallel(true)
@@ -143,3 +147,5 @@ func _run_ending_scare() -> void:
 	# 6. Intentional ending card
 	if ui and ui.has_method("show_banner"):
 		ui.show_banner("LEVEL 2 COMPLETE", "TO BE CONTINUED IN LEVEL 3 — THE VESSEL")
+	if ui and ui.has_method("show_message"):
+		ui.show_message("Press [R] to Restart | [ESC] for Title Screen", 15.0)

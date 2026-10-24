@@ -23,6 +23,11 @@ func _ready() -> void:
 	if grid and grid.has_method("set_eclipse_mode"):
 		grid.set_eclipse_mode(false)
 
+	# Ensure cheerful exploration background music is playing
+	if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
+		var audio_mgr = get_tree().root.get_node("AudioManager")
+		audio_mgr.play_gameplay_music(eclipse_active)
+
 	# Center the fixed camera on the 640×384 room
 	if camera:
 		camera.global_position = Vector2(320, 192)
@@ -62,6 +67,16 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("restart") and not is_completing:
 		if is_inside_tree() and get_tree():
 			get_tree().reload_current_scene()
+	elif event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_M:
+			if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
+				var audio_mgr = get_tree().root.get_node("AudioManager")
+				var muted = audio_mgr.toggle_mute()
+				if ui and ui.has_method("show_message"):
+					ui.show_message("Audio: " + ("MUTED" if muted else "UNMUTED"), 1.5)
+		elif event.keycode == KEY_ESCAPE:
+			if is_inside_tree() and get_tree():
+				get_tree().change_scene_to_file("res://scenes/title_screen.tscn")
 
 func toggle_dimension() -> void:
 	if not wanderer or not shadow:
@@ -81,6 +96,11 @@ func toggle_dimension() -> void:
 		wanderer.is_controlled = true
 		wanderer.velocity = Vector2.ZERO
 
+		# Sound for returning to Wanderer
+		if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
+			var audio_mgr = get_tree().root.get_node("AudioManager")
+			audio_mgr.play_return_wanderer_sfx()
+
 		print("NORMAL MODE: Shadow dismissed")
 
 	# Otherwise, summon the Shadow at the Wanderer's current position.
@@ -98,6 +118,11 @@ func toggle_dimension() -> void:
 		wanderer.velocity = Vector2.ZERO
 		shadow.is_controlled = true
 
+		# Sound for summoning the Shadow
+		if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
+			var audio_mgr = get_tree().root.get_node("AudioManager")
+			audio_mgr.play_summon_shadow_sfx()
+
 		print("ECLIPSE MODE: Shadow summoned")
 
 	# Update the world and interface.
@@ -106,6 +131,11 @@ func toggle_dimension() -> void:
 
 	if ui and ui.has_method("update_dimension"):
 		ui.update_dimension(eclipse_active)
+
+	# Dynamic music crossfade between cheerful Normal and ominous Shadow tracks
+	if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
+		var audio_mgr = get_tree().root.get_node("AudioManager")
+		audio_mgr.play_gameplay_music(eclipse_active, 0.8)
 
 func complete_level() -> void:
 	if is_completing:

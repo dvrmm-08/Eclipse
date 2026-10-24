@@ -1,0 +1,409 @@
+[gd_scene load_steps=12 format=3 uid="uid://b0title_screen_eclipse"]
+
+[ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/eclipse_disc.png" id="2_eclipse"]
+[ext_resource type="Texture2D" path="res://assets/wanderer.png" id="3_wanderer"]
+[ext_resource type="Texture2D" path="res://assets/shadow.png" id="4_shadow"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/cyan_glow.png" id="5_cyan"]
+[ext_resource type="FontFile" path="res://assets/fonts/PressStart2P-Regular.ttf" id="6_pressstart"]
+[ext_resource type="FontFile" path="res://assets/fonts/Silkscreen-Regular.ttf" id="7_silkscreen"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_normal"]
+bg_color = Color(0.055, 0.065, 0.11, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.24, 0.36, 0.52, 0.75)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hover"]
+bg_color = Color(0.08, 0.14, 0.22, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.85, 0.95, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pressed"]
+bg_color = Color(0.18, 0.08, 0.12, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.95, 0.25, 0.35, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.035, 0.035, 0.06, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.22, 0.55, 0.72, 0.85)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Background" type="ColorRect" parent="Visuals"]
+offset_right = 640.0
+offset_bottom = 384.0
+color = Color(0.024, 0.02, 0.038, 1)
+
+[node name="LowerVignette" type="ColorRect" parent="Visuals"]
+offset_top = 260.0
+offset_right = 640.0
+offset_bottom = 384.0
+color = Color(0.012, 0.01, 0.02, 0.95)
+
+[node name="EclipseDisc" type="Node2D" parent="Visuals"]
+position = Vector2(320, 68)
+
+[node name="Corona" type="Sprite2D" parent="Visuals/EclipseDisc"]
+texture_filter = 1
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("2_eclipse")
+
+[node name="LeftAltar" type="ColorRect" parent="Visuals"]
+offset_left = 72.0
+offset_top = 262.0
+offset_right = 148.0
+offset_bottom = 384.0
+color = Color(0.075, 0.075, 0.115, 1)
+
+[node name="LeftAltarTrim" type="ColorRect" parent="Visuals"]
+offset_left = 68.0
+offset_top = 259.0
+offset_right = 152.0
+offset_bottom = 263.0
+color = Color(0.18, 0.22, 0.32, 1)
+
+[node name="CyanGlow" type="Sprite2D" parent="Visuals"]
+texture_filter = 1
+position = Vector2(110, 260)
+scale = Vector2(1.2, 0.9)
+texture = ExtResource("5_cyan")
+
+[node name="WandererSprite" type="Sprite2D" parent="Visuals"]
+texture_filter = 1
+position = Vector2(110, 234)
+scale = Vector2(2, 2)
+texture = ExtResource("3_wanderer")
+
+[node name="RightAltar" type="ColorRect" parent="Visuals"]
+offset_left = 492.0
+offset_top = 262.0
+offset_right = 568.0
+offset_bottom = 384.0
+color = Color(0.075, 0.075, 0.115, 1)
+
+[node name="RightAltarTrim" type="ColorRect" parent="Visuals"]
+offset_left = 488.0
+offset_top = 259.0
+offset_right = 572.0
+offset_bottom = 263.0
+color = Color(0.18, 0.22, 0.32, 1)
+
+[node name="ShadowSprite" type="Sprite2D" parent="Visuals"]
+modulate = Color(0.75, 0.75, 0.95, 0.8)
+texture_filter = 1
+position = Vector2(530, 234)
+scale = Vector2(2, 2)
+texture = ExtResource("4_shadow")
+flip_h = true
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuColumn" type="VBoxContainer" parent="UI/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="HeaderContainer" type="VBoxContainer" parent="UI/CenterContainer/MenuColumn"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="UI/CenterContainer/MenuColumn/HeaderContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.96, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.85, 0.15, 0.25, 0.95)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("6_pressstart")
+theme_override_font_sizes/font_size = 28
+text = "ECLIPSE"
+horizontal_alignment = 1
+
+[node name="TaglineLabel" type="Label" parent="UI/CenterContainer/MenuColumn/HeaderContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.85, 0.95, 0.95)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 9
+text = "Some shadows remember."
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="UI/CenterContainer/MenuColumn"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+
+[node name="MenuContainer" type="VBoxContainer" parent="UI/CenterContainer/MenuColumn"]
+layout_mode = 2
+theme_override_constants/separation = 7
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="UI/CenterContainer/MenuColumn/MenuContainer"]
+custom_minimum_size = Vector2(170, 24)
+layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_bottom = NodePath("../CreditsButton")
+theme_override_colors/font_hover_color = Color(0.3, 0.95, 1, 1)
+theme_override_colors/font_focus_color = Color(0.3, 0.95, 1, 1)
+theme_override_colors/font_color = Color(0.92, 0.95, 1, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
+text = "PLAY"
+
+[node name="CreditsButton" type="Button" parent="UI/CenterContainer/MenuColumn/MenuContainer"]
+custom_minimum_size = Vector2(170, 24)
+layout_mode = 2
+focus_neighbor_top = NodePath("../PlayButton")
+focus_neighbor_bottom = NodePath("../MuteButton")
+theme_override_colors/font_hover_color = Color(0.3, 0.95, 1, 1)
+theme_override_colors/font_focus_color = Color(0.3, 0.95, 1, 1)
+theme_override_colors/font_color = Color(0.92, 0.95, 1, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
+text = "CREDITS"
+
+[node name="MuteButton" type="Button" parent="UI/CenterContainer/MenuColumn/MenuContainer"]
+custom_minimum_size = Vector2(170, 24)
+layout_mode = 2
+focus_neighbor_top = NodePath("../CreditsButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
+theme_override_colors/font_hover_color = Color(0.3, 0.95, 1, 1)
+theme_override_colors/font_focus_color = Color(0.3, 0.95, 1, 1)
+theme_override_colors/font_color = Color(0.8, 0.86, 0.92, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
+text = "AUDIO: ON"
+
+[node name="QuitButton" type="Button" parent="UI/CenterContainer/MenuColumn/MenuContainer"]
+custom_minimum_size = Vector2(170, 24)
+layout_mode = 2
+focus_neighbor_top = NodePath("../MuteButton")
+focus_neighbor_bottom = NodePath("../PlayButton")
+theme_override_colors/font_hover_color = Color(1, 0.35, 0.45, 1)
+theme_override_colors/font_focus_color = Color(1, 0.35, 0.45, 1)
+theme_override_colors/font_color = Color(0.72, 0.76, 0.84, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
+text = "QUIT"
+
+[node name="CreditsModal" type="Control" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DimOverlay" type="ColorRect" parent="UI/CreditsModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.015, 0.015, 0.025, 0.92)
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/CreditsModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="UI/CreditsModal/CenterContainer"]
+custom_minimum_size = Vector2(460, 290)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/CreditsModal/CenterContainer/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 14
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ModalTitle" type="Label" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.88, 0.72, 1)
+theme_override_colors/font_shadow_color = Color(0.75, 0.12, 0.22, 0.85)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("6_pressstart")
+theme_override_font_sizes/font_size = 14
+text = "— ECLIPSE —"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(420, 190)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="CreditsContent" type="VBoxContainer" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="CreatorHeading" type="Label" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.82, 0.92, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 9
+text = "• GAME DESIGN & DIRECTION •"
+horizontal_alignment = 1
+
+[node name="CreatorLabel" type="Label" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.94, 0.88, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 10
+text = "[Creator Name]"
+horizontal_alignment = 1
+
+[node name="AudioHeading" type="Label" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.82, 0.92, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 9
+text = "• ATMOSPHERIC AUDIO & SFX •"
+horizontal_alignment = 1
+
+[node name="AudioLabel" type="Label" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.82, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 8
+text = "ECLIPSE Procedural Sound Engine
+Menu, Exploration & Shadow Themes (CC0 1.0)"
+horizontal_alignment = 1
+
+[node name="ArtHeading" type="Label" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.82, 0.92, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 9
+text = "• PIXEL ART & RUINS ENVIRONMENT •"
+horizontal_alignment = 1
+
+[node name="ArtLabel" type="Label" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.82, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 8
+text = "ECLIPSE Entity & TileMapLayer Architecture
+Custom 32x32 Tileset & Atmospheric Props"
+horizontal_alignment = 1
+
+[node name="FontHeading" type="Label" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.82, 0.92, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 9
+text = "• RETRO TYPOGRAPHY •"
+horizontal_alignment = 1
+
+[node name="FontLabel" type="Label" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.82, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 8
+text = "Press Start 2P by CodeMan38 (SIL OFL 1.1)
+Silkscreen by Jason Kottke (SIL OFL 1.1)"
+horizontal_alignment = 1
+
+[node name="EngineHeading" type="Label" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.82, 0.92, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 9
+text = "• ENGINE •"
+horizontal_alignment = 1
+
+[node name="EngineLabel" type="Label" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.82, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 8
+text = "Built with Godot Engine 4.7"
+horizontal_alignment = 1
+
+[node name="CloseCreditsButton" type="Button" parent="UI/CreditsModal/CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(110, 22)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_hover_color = Color(0.3, 0.95, 1, 1)
+theme_override_colors/font_focus_color = Color(0.3, 0.95, 1, 1)
+theme_override_colors/font_color = Color(0.92, 0.95, 1, 1)
+theme_override_fonts/font = ExtResource("7_silkscreen")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
+text = "BACK"

@@ -21,10 +21,12 @@ enum State { INACTIVE, WARNING, ACTIVE }
 @export var warning_duration: float = 0.75
 @export var active_duration: float = 1.5
 @export var safe_reset_pos: Vector2 = Vector2(80, 48)
+@export var laser_audio_stream: AudioStream = null
 
 @onready var laser_line: Line2D = $LaserLine
 @onready var hazard_area: Area2D = $HazardArea
 @onready var hazard_shape: CollisionShape2D = $HazardArea/CollisionShape2D
+@onready var laser_audio: AudioStreamPlayer2D = get_node_or_null("LaserAudio")
 
 var current_state: State = State.INACTIVE
 var _state_timer: float = 0.0
@@ -37,6 +39,14 @@ func _ready() -> void:
 		hazard_area = $HazardArea
 	if not hazard_shape and has_node("HazardArea/CollisionShape2D"):
 		hazard_shape = $HazardArea/CollisionShape2D
+	if not laser_audio and has_node("LaserAudio"):
+		laser_audio = $LaserAudio
+
+	if laser_audio:
+		laser_audio.bus = "SFX"
+		laser_audio.volume_db = -18.0
+		if laser_audio_stream:
+			laser_audio.stream = laser_audio_stream
 
 	if hazard_area:
 		hazard_area.collision_layer = 0
@@ -90,6 +100,8 @@ func _set_state(new_state: State) -> void:
 				laser_line.visible = false
 			if hazard_shape:
 				hazard_shape.disabled = true
+			if laser_audio and laser_audio.playing:
+				laser_audio.stop()
 		State.WARNING:
 			_warning_pulse = 0.0
 			if laser_line:
@@ -99,6 +111,8 @@ func _set_state(new_state: State) -> void:
 				laser_line.points = PackedVector2Array([Vector2.ZERO, Vector2(beam_length, 0.0)])
 			if hazard_shape:
 				hazard_shape.disabled = true
+			if laser_audio and laser_audio.playing:
+				laser_audio.stop()
 		State.ACTIVE:
 			if laser_line:
 				laser_line.visible = true
@@ -108,6 +122,8 @@ func _set_state(new_state: State) -> void:
 			if hazard_shape:
 				hazard_shape.disabled = false
 				_check_instant_contact()
+			if laser_audio and not laser_audio.playing and laser_audio.stream:
+				laser_audio.play()
 
 func _check_instant_contact() -> void:
 	if not hazard_area:

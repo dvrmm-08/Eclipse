@@ -135,6 +135,9 @@ func interact(interactor: Node2D) -> void:
 
 		if not is_active:
 			is_active = true
+			if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
+				var audio_mgr = get_tree().root.get_node("AudioManager")
+				audio_mgr.play_mechanism_sfx()
 			emit_signal("state_changed", true)
 			if target_gate and target_gate.has_method("open_gate"):
 				target_gate.open_gate()
@@ -145,15 +148,24 @@ func interact(interactor: Node2D) -> void:
 				ui.show_message("The mechanism is already unlocked. The exit path lies open.")
 
 	elif type == Type.TABLET:
+		if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
+			var audio_mgr = get_tree().root.get_node("AudioManager")
+			audio_mgr.play_tablet_sfx()
 		if ui and ui.has_method("show_message"):
 			ui.show_message(message)
 
 	elif type == Type.NOTE:
+		if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
+			var audio_mgr = get_tree().root.get_node("AudioManager")
+			audio_mgr.play_message_sfx()
 		if ui and ui.has_method("show_message"):
 			ui.show_message(message)
 
 	elif type == Type.GATE:
 		if is_active:
+			if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
+				var audio_mgr = get_tree().root.get_node("AudioManager")
+				audio_mgr.play_gate_sfx()
 			if level and level.has_method("complete_level"):
 				level.complete_level()
 		else:
@@ -163,8 +175,12 @@ func interact(interactor: Node2D) -> void:
 	emit_signal("interacted", interactor)
 
 func open_gate() -> void:
-	is_active = true
-	emit_signal("state_changed", true)
+	if not is_active:
+		is_active = true
+		if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
+			var audio_mgr = get_tree().root.get_node("AudioManager")
+			audio_mgr.play_gate_sfx()
+		emit_signal("state_changed", true)
 
 func _update_visuals() -> void:
 	if not sprite and has_node("Sprite2D"):

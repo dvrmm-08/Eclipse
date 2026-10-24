@@ -22,3 +22,7 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea"]
 position = Vector2(80, 0)
 shape = SubResource("RectangleShape2D_beam")
+
+[node name="LaserAudio" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
+volume_db = -18.0

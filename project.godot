@@ -11,8 +11,12 @@ config_version=5
 [application]
 
 config/name="ECLIPSE"
-run/main_scene="res://scenes/level_1.tscn"
+run/main_scene="res://scenes/title_screen.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
+
+[autoload]
+
+AudioManager="*res://scripts/audio_manager.gd"
 
 [display]
 

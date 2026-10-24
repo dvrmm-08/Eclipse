@@ -1,0 +1,23 @@
+# SIL Open Font License 1.1 Documentation
+
+The fonts in this directory are licensed under the SIL Open Font License, Version 1.1.
+
+## Included Fonts
+
+1. **Press Start 2P** (`PressStart2P-Regular.ttf`)
+   - Author: CodeMan38 (cody@zone38.net)
+   - Source: Google Fonts (https://fonts.google.com/specimen/Press+Start+2P)
+   - License: SIL Open Font License, 1.1
+
+2. **Silkscreen** (`Silkscreen-Regular.ttf`)
+   - Author: Jason Kottke (https://kottke.org/)
+   - Source: Google Fonts (https://fonts.google.com/specimen/Silkscreen)
+   - License: SIL Open Font License, 1.1
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the standard SIL OFL conditions.
