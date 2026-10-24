@@ -6,8 +6,9 @@ extends Node2D
 #   - Ground: Walkable grass, dirt, stone floor (No collision)
 #   - Walls: Solid stone masonry (Physics Layer 0 = Layer 1 Solid_Walls)
 #   - Void: Deep chasm (Physics Layer 1 = Layer 18: Blocks Wanderer & Shadow)
-#   - EclipsePaths: Hidden cyan bridge (Physics Layer 2 = Layer 2: Blocks Wanderer,
-#                   walkable by Shadow)
+#   - EclipsePaths: Hidden cyan bridge:
+#                   Normal mode: displays as pitch-black void (5, 1) and blocks Wanderer (Layer 2)
+#                   Eclipse mode: displays as radiant cyan blocks (4, 1) and Shadow walks across
 #   - Decoration: Scenic floor details
 # ═════════════════════════════════════════════════════════════════════════════
 
@@ -44,6 +45,7 @@ func _setup_layers() -> void:
 		walls_layer.collision_enabled = true
 	if eclipse_paths_layer:
 		eclipse_paths_layer.collision_enabled = true
+		eclipse_paths_layer.visible = true
 
 		# Record bridge cells authored by the designer
 		_bridge_cells = eclipse_paths_layer.get_used_cells()
@@ -57,11 +59,14 @@ func _setup_layers() -> void:
 func set_eclipse_mode(active: bool) -> void:
 	_get_layers()
 
-	# 1. Reveal or hide the glowing cyan bridge
-	# When hidden (Normal mode), collision on Layer 2 remains active, blocking the Wanderer.
-	# When visible (Eclipse mode), Shadow (whose mask ignores Layer 2) walks across.
+	# 1. Update the hidden bridge:
+	# In Normal mode: displays as void (5, 1) - seamless pitch black, blocks Wanderer (Layer 2)
+	# In Eclipse mode: displays as radiant cyan path (4, 1) - reveals path, Shadow walks across
 	if eclipse_paths_layer:
-		eclipse_paths_layer.visible = active
+		eclipse_paths_layer.visible = true
+		var bridge_atlas = Vector2i(4, 1) if active else Vector2i(5, 1)
+		for cell in _bridge_cells:
+			eclipse_paths_layer.set_cell(cell, 0, bridge_atlas)
 
 	# 2. Swap Void tiles between near-black (2, 1) and glowing crimson (3, 1)
 	if void_layer:

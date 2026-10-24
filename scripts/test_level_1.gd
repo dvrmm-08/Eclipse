@@ -107,9 +107,9 @@ func _init() -> void:
 	var init_ok = (wanderer.is_controlled == true and shadow.is_controlled == false and
 				   shadow.visible == false and level.eclipse_active == false and
 				   lever.is_active == false and gate.is_active == false and
-				   eclipse_paths.visible == false)
+				   (eclipse_paths.visible == false or eclipse_paths.get_cell_atlas_coords(Vector2i(8, 5)) == Vector2i(5, 1)))
 	if init_ok:
-		print("  [PASS] Test 6: Initial world state valid (Wanderer active, Shadow hidden, Gate locked, Cyan path hidden)")
+		print("  [PASS] Test 6: Initial world state valid (Wanderer active, Shadow hidden, Gate locked, Bridge shows void in Normal)")
 		tests_passed += 1
 	else:
 		printerr("  [FAIL] Test 6: Initial world state mismatch")

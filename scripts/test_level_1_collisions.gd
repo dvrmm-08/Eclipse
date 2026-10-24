@@ -10,7 +10,6 @@ func _run_tests() -> void:
 	var scene_res = load("res://scenes/level_1.tscn")
 	var level = scene_res.instantiate()
 	root.add_child(level)
-	level._ready()
 
 	var wanderer = level.get_node("Wanderer")
 	var shadow = level.get_node("Shadow")
@@ -81,14 +80,14 @@ func _run_tests() -> void:
 
 	# ── TEST 5: Shadow is BLOCKED by the surrounding Red Void in Eclipse Mode ──
 	total += 1
-	# Shadow at bridge center (304, 176). Try moving down into row 6 (void chasm at col 9, row 6: y=192..224)
-	shadow.position = Vector2(304, 176)
+	# Shadow at bridge bottom edge (304, 208). Try moving down into row 7 (void chasm at col 9, row 7: y=224..256)
+	shadow.position = Vector2(304, 208)
 	Input.action_press("move_down")
 	for i in range(25):
 		await physics_frame
 	Input.action_release("move_down")
 
-	if shadow.position.y < 200.0:
+	if shadow.position.y < 232.0:
 		print("  [PASS] Test 5: Shadow physically blocked by surrounding Red Void (stopped at y=", shadow.position.y, ")")
 		passed += 1
 	else:
