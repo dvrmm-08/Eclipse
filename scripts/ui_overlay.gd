@@ -2,12 +2,14 @@ extends CanvasLayer
 
 @onready var dimension_label: Label = $HUD/DimensionLabel
 @onready var controls_label: Label = $HUD/ControlsLabel
+@onready var music_button: Button = get_node_or_null("HUD/MusicToggleButton") as Button
 @onready var message_box: PanelContainer = $HUD/MessageBox
 @onready var message_label: Label = $HUD/MessageBox/MarginContainer/MessageLabel
 @onready var level_banner: Label = $HUD/LevelBanner
 @onready var canvas_modulate: CanvasModulate = $CanvasModulate
 
 var message_timer: float = 0.0
+var font_silkscreen: Font = null
 
 func _init_ui() -> void:
 	if not message_box and has_node("HUD/MessageBox"):
@@ -18,6 +20,8 @@ func _init_ui() -> void:
 		dimension_label = $HUD/DimensionLabel
 	if not controls_label and has_node("HUD/ControlsLabel"):
 		controls_label = $HUD/ControlsLabel
+	if not music_button and has_node("HUD/MusicToggleButton"):
+		music_button = $HUD/MusicToggleButton
 	if not level_banner and has_node("HUD/LevelBanner"):
 		level_banner = $HUD/LevelBanner
 	if not canvas_modulate and has_node("CanvasModulate"):
@@ -31,8 +35,24 @@ func _ready() -> void:
 	if level_banner:
 		level_banner.visible = false
 	if controls_label:
-		controls_label.text = "WASD: Move | P: Switch Form | E: Interact | M: Mute | ESC: Menu | R: Restart"
+		controls_label.text = "WASD: Move | P: Switch | E: Interact | ESC: Menu"
 	update_dimension(false)
+
+	if font_silkscreen == null and ResourceLoader.exists("res://assets/fonts/Silkscreen-Regular.ttf"):
+		font_silkscreen = load("res://assets/fonts/Silkscreen-Regular.ttf")
+
+	if music_button:
+		if not music_button.pressed.is_connected(_on_music_button_pressed):
+			music_button.pressed.connect(_on_music_button_pressed)
+		if not music_button.mouse_entered.is_connected(_on_music_button_hover):
+			music_button.mouse_entered.connect(_on_music_button_hover)
+
+	var audio_mgr = get_node_or_null("/root/AudioManager")
+	if audio_mgr and audio_mgr.has_signal("music_mute_toggled"):
+		if not audio_mgr.music_mute_toggled.is_connected(_on_music_mute_toggled):
+			audio_mgr.music_mute_toggled.connect(_on_music_mute_toggled)
+
+	_update_music_button()
 
 func _process(delta: float) -> void:
 	if message_timer > 0.0:
@@ -120,6 +140,99 @@ func hide_hud() -> void:
 		controls_label.visible = false
 	if level_banner:
 		level_banner.visible = false
+	if music_button:
+		music_button.visible = false
+
+func show_hud() -> void:
+	_init_ui()
+	if dimension_label:
+		dimension_label.visible = true
+	if controls_label:
+		controls_label.visible = true
+	if music_button:
+		music_button.visible = true
+
+func _on_music_button_pressed() -> void:
+	var audio_mgr = get_node_or_null("/root/AudioManager")
+	if audio_mgr:
+		if audio_mgr.has_method("play_ui_click"):
+			audio_mgr.play_ui_click()
+		if audio_mgr.has_method("toggle_music_mute"):
+			audio_mgr.toggle_music_mute()
+		else:
+			audio_mgr.toggle_mute()
+	_update_music_button()
+
+func _on_music_button_hover() -> void:
+	var audio_mgr = get_node_or_null("/root/AudioManager")
+	if audio_mgr and audio_mgr.has_method("play_ui_hover"):
+		audio_mgr.play_ui_hover()
+
+func _on_music_mute_toggled(_muted: bool) -> void:
+	_update_music_button()
+
+func _update_music_button() -> void:
+	if not music_button:
+		return
+	var audio_mgr = get_node_or_null("/root/AudioManager")
+	var is_muted = audio_mgr.get_music_muted() if audio_mgr and audio_mgr.has_method("get_music_muted") else false
+	_apply_music_button_style(is_muted)
+
+func _apply_music_button_style(is_muted: bool) -> void:
+	if not music_button:
+		return
+
+	if font_silkscreen:
+		music_button.add_theme_font_override("font", font_silkscreen)
+	music_button.add_theme_font_size_override("font_size", 8)
+
+	var style_normal = StyleBoxFlat.new()
+	var style_hover = StyleBoxFlat.new()
+	var style_pressed = StyleBoxFlat.new()
+
+	for sb in [style_normal, style_hover, style_pressed]:
+		sb.set_border_width_all(1)
+		sb.set_corner_radius_all(2)
+
+	if is_muted:
+		music_button.text = "MUSIC: OFF"
+		music_button.tooltip_text = "Music: OFF (Click to unmute)"
+
+		# Dark, muted colors
+		style_normal.bg_color = Color(0.06, 0.07, 0.10, 0.85)
+		style_normal.border_color = Color(0.32, 0.35, 0.42, 0.6)
+
+		style_hover.bg_color = Color(0.10, 0.12, 0.18, 0.95)
+		style_hover.border_color = Color(0.55, 0.60, 0.70, 0.9)
+
+		style_pressed.bg_color = Color(0.14, 0.16, 0.22, 0.95)
+		style_pressed.border_color = Color(0.70, 0.75, 0.85, 1.0)
+
+		music_button.add_theme_color_override("font_color", Color(0.60, 0.64, 0.72, 0.8))
+		music_button.add_theme_color_override("font_hover_color", Color(0.85, 0.88, 0.95, 1.0))
+		music_button.add_theme_color_override("font_pressed_color", Color(1.0, 1.0, 1.0, 1.0))
+	else:
+		music_button.text = "MUSIC: ON"
+		music_button.tooltip_text = "Music: ON (Click to mute)"
+
+		# Radiant cyan theme matching Eclipse UI
+		style_normal.bg_color = Color(0.05, 0.09, 0.15, 0.85)
+		style_normal.border_color = Color(0.20, 0.70, 0.82, 0.65)
+
+		style_hover.bg_color = Color(0.08, 0.15, 0.24, 0.95)
+		style_hover.border_color = Color(0.30, 0.90, 1.0, 0.95)
+
+		style_pressed.bg_color = Color(0.12, 0.20, 0.30, 0.95)
+		style_pressed.border_color = Color(0.40, 1.0, 1.0, 1.0)
+
+		music_button.add_theme_color_override("font_color", Color(0.20, 0.85, 0.95, 1.0))
+		music_button.add_theme_color_override("font_hover_color", Color(0.50, 0.95, 1.0, 1.0))
+		music_button.add_theme_color_override("font_pressed_color", Color(0.75, 1.0, 1.0, 1.0))
+
+	music_button.add_theme_stylebox_override("normal", style_normal)
+	music_button.add_theme_stylebox_override("hover", style_hover)
+	music_button.add_theme_stylebox_override("pressed", style_pressed)
+	music_button.add_theme_stylebox_override("focus", style_hover)
 
 func _set_msg_border_color(color: Color) -> void:
 	if message_box:

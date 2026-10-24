@@ -71,9 +71,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.keycode == KEY_M:
 			if is_inside_tree() and get_tree() and get_tree().root.has_node("AudioManager"):
 				var audio_mgr = get_tree().root.get_node("AudioManager")
-				var muted = audio_mgr.toggle_mute()
+				var muted = false
+				if audio_mgr.has_method("toggle_music_mute"):
+					muted = audio_mgr.toggle_music_mute()
+				else:
+					muted = audio_mgr.toggle_mute()
 				if ui and ui.has_method("show_message"):
-					ui.show_message("Audio: " + ("MUTED" if muted else "UNMUTED"), 1.5)
+					ui.show_message("Music: " + ("MUTED" if muted else "UNMUTED"), 1.5)
 		elif event.keycode == KEY_ESCAPE:
 			if is_inside_tree() and get_tree():
 				get_tree().change_scene_to_file("res://scenes/title_screen.tscn")

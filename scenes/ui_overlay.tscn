@@ -31,11 +31,11 @@ mouse_filter = 2
 
 [node name="DimensionLabel" type="Label" parent="HUD"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 12.0
-offset_right = 260.0
-offset_bottom = 32.0
-theme_override_font_sizes/font_size = 10
+offset_left = 14.0
+offset_top = 10.0
+offset_right = 240.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 9
 text = "○ NORMAL WORLD [Wanderer]"
 
 [node name="ControlsLabel" type="Label" parent="HUD"]
@@ -43,15 +43,31 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -380.0
-offset_top = 12.0
-offset_right = -16.0
-offset_bottom = 32.0
+offset_left = -460.0
+offset_top = 10.0
+offset_right = -106.0
+offset_bottom = 28.0
 grow_horizontal = 0
 theme_override_colors/font_color = Color(0.75, 0.8, 0.9, 0.95)
-theme_override_font_sizes/font_size = 10
-text = "WASD: Move | P: Switch Form | E: Interact | R: Restart"
+theme_override_font_sizes/font_size = 9
+text = "WASD: Move | P: Switch | E: Interact | ESC: Menu"
 horizontal_alignment = 2
+
+[node name="MusicToggleButton" type="Button" parent="HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -96.0
+offset_top = 8.0
+offset_right = -14.0
+offset_bottom = 28.0
+grow_horizontal = 0
+focus_mode = 0
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 8
+text = "MUSIC: ON"
 
 [node name="LevelBanner" type="Label" parent="HUD"]
 layout_mode = 1

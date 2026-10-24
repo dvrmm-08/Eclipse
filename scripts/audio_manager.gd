@@ -69,19 +69,23 @@ var stream_sfx_mech: AudioStream = null
 var stream_sfx_gate: AudioStream = null
 var stream_sfx_reveal: AudioStream = null
 
+const SETTINGS_PATH: String = "user://settings.cfg"
 var is_muted: bool = false
+var is_music_muted: bool = false
 var default_music_volume_db: float = -10.0
 var default_sfx_volume_db: float = -6.0
 
 var _crossfade_tween: Tween = null
 
 signal mute_toggled(muted: bool)
+signal music_mute_toggled(muted: bool)
 signal music_mode_changed(mode: MusicMode)
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 	_ensure_audio_buses()
+	_load_settings()
 	_load_resources()
 	_setup_players()
 
@@ -320,7 +324,56 @@ func _play_sfx(player: AudioStreamPlayer) -> void:
 		return
 	player.play()
 
-# ── VOLUME & MUTE ────────────────────────────────────────────────────────────
+# ── SETTINGS PERSISTENCE ─────────────────────────────────────────────────────
+
+func _load_settings() -> void:
+	var config = ConfigFile.new()
+	var err = config.load(SETTINGS_PATH)
+	if err == OK:
+		is_music_muted = config.get_value("audio", "music_muted", false)
+	else:
+		is_music_muted = false
+
+	var bus_idx = AudioServer.get_bus_index("Music")
+	if bus_idx != -1:
+		AudioServer.set_bus_mute(bus_idx, is_music_muted)
+	print("AUDIO: Settings loaded. Music muted: ", is_music_muted)
+
+func _save_settings() -> void:
+	var config = ConfigFile.new()
+	# Load existing file first to preserve any other existing sections/keys
+	config.load(SETTINGS_PATH)
+	config.set_value("audio", "music_muted", is_music_muted)
+	var err = config.save(SETTINGS_PATH)
+	if err != OK:
+		push_warning("Failed to save audio settings to: " + SETTINGS_PATH)
+
+# ── MUSIC-SPECIFIC MUTE ──────────────────────────────────────────────────────
+
+func toggle_music_mute() -> bool:
+	set_music_muted(not is_music_muted)
+	return is_music_muted
+
+func set_music_muted(muted: bool, save: bool = true) -> void:
+	is_music_muted = muted
+	var bus_idx = AudioServer.get_bus_index("Music")
+	if bus_idx != -1:
+		AudioServer.set_bus_mute(bus_idx, is_music_muted)
+
+	if not is_music_muted and not is_muted:
+		if active_player and active_player.stream and not active_player.playing:
+			active_player.play()
+
+	if save:
+		_save_settings()
+
+	emit_signal("music_mute_toggled", is_music_muted)
+	print("AUDIO: Music mute set to ", is_music_muted)
+
+func get_music_muted() -> bool:
+	return is_music_muted
+
+# ── MASTER VOLUME & MUTE ─────────────────────────────────────────────────────
 
 func toggle_mute() -> bool:
 	set_muted(not is_muted)
