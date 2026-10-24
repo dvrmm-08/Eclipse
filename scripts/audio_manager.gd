@@ -27,7 +27,8 @@ enum MusicMode {
 	NONE,
 	MENU,
 	NORMAL,
-	ECLIPSE
+	ECLIPSE,
+	ENDING
 }
 
 var current_mode: MusicMode = MusicMode.NONE
@@ -54,6 +55,7 @@ var sfx_reveal: AudioStreamPlayer = null
 var stream_menu: AudioStream = null
 var stream_exploration: AudioStream = null
 var stream_eclipse: AudioStream = null
+var stream_ending: AudioStream = null
 
 var stream_ui_hover: AudioStream = null
 var stream_ui_click: AudioStream = null
@@ -111,6 +113,10 @@ func _load_resources() -> void:
 	if ResourceLoader.exists("res://assets/audio/into_the_ruined_temple.mp3"):
 		stream_eclipse = load("res://assets/audio/into_the_ruined_temple.mp3")
 		_ensure_loop(stream_eclipse)
+
+	if ResourceLoader.exists("res://assets/audio/bombinsound-halloween-suspense-horror-halloween-waltz-619348.mp3"):
+		stream_ending = load("res://assets/audio/bombinsound-halloween-suspense-horror-halloween-waltz-619348.mp3")
+		_ensure_loop(stream_ending)
 
 	# SFX Streams
 	if ResourceLoader.exists("res://assets/sfx/impactSoft_medium_000.ogg"):
@@ -210,6 +216,13 @@ func play_gameplay_music(is_eclipse: bool, crossfade_time: float = 0.8) -> void:
 	var target_stream = stream_eclipse if is_eclipse else stream_exploration
 	var target_vol = -8.0 if is_eclipse else -12.0
 	_crossfade_to_stream(target_stream, crossfade_time, target_vol)
+	emit_signal("music_mode_changed", current_mode)
+
+func play_ending_music(fade_in_time: float = 1.5, target_vol_db: float = -12.0) -> void:
+	if current_mode == MusicMode.ENDING and active_player and active_player.playing:
+		return
+	current_mode = MusicMode.ENDING
+	_crossfade_to_stream(stream_ending, fade_in_time, target_vol_db)
 	emit_signal("music_mode_changed", current_mode)
 
 func fade_out_music(duration: float = 0.6) -> void:

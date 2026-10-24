@@ -60,7 +60,7 @@ position = Vector2(592, 212)
 position = Vector2(500, 192)
 
 [node name="Bush_2" parent="Props" unique_id=1379281034 instance=ExtResource("4_k22d5")]
-position = Vector2(48, 304)
+position = Vector2(48, 218)
 
 [node name="Bush_5" parent="Props" unique_id=474576690 instance=ExtResource("4_k22d5")]
 position = Vector2(500, 304)
@@ -78,7 +78,7 @@ position = Vector2(500, 112)
 position = Vector2(592, 280)
 
 [node name="Rock_3" parent="Props" unique_id=1674640545 instance=ExtResource("5_k6a82")]
-position = Vector2(48, 212)
+position = Vector2(134, 346)
 
 [node name="Objects" type="Node2D" parent="." unique_id=1564624859]
 
@@ -87,12 +87,12 @@ position = Vector2(53.000004, 54)
 rotation = -1.3089969
 
 [node name="WatcherStatueA2" parent="Objects" unique_id=2018755437 instance=ExtResource("7_vhnap")]
-position = Vector2(55.000004, 318)
-rotation = 3.1415927
+position = Vector2(47.99998, 336)
+rotation = 3.6651917
 
 [node name="WatcherStatueA3" parent="Objects" unique_id=669765226 instance=ExtResource("7_vhnap")]
-position = Vector2(178, 325)
-rotation = 3.1415927
+position = Vector2(177.99998, 336)
+rotation = 2.6179938
 
 [node name="WatcherStatueB" parent="Objects" unique_id=811176034 instance=ExtResource("7_vhnap")]
 position = Vector2(172.00002, 60.000008)

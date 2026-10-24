@@ -11,6 +11,7 @@ Comprehensive documentation of all 136 audio assets present in the project (`res
 | **Main Menu BGM** | `res://assets/audio/the_field_of_dreams.mp3` | MP3 | 84.64s | Music | *The Field of Dreams* (Paulius Jurgelevicius, CC0). Ethereal, contemplative, celestial harmony framing the title screen and ruins. |
 | **Normal Mode BGM** | `res://assets/audio/NES_TheOldTowerInn.mp3` | MP3 | 100.96s | Music | *The Old Tower Inn* (173 BPM chiptune). Warm, cheerful, curious retro NES adventure theme active while exploring as the mortal Wanderer. |
 | **Eclipse Mode BGM** | `res://assets/audio/into_the_ruined_temple.mp3` | MP3 | 146.75s | Music | *Into the Ruined Temple*. Ominous, reverberant, dark atmospheric score active during Shadow realm traversal. Crossfades smoothly over 0.8s. |
+| **Level 2 Ending BGM** | `res://assets/audio/bombinsound-halloween-suspense-horror-halloween-waltz-619348.mp3` | MP3 | 65.78s | Music | *Halloween Suspense Horror Waltz* (bombinsound). Haunting, melancholic waltz with ticking clock and acoustic strings. Fades in as Shadow appears behind Wanderer during the final conversation. Crossfades smoothly over 1.5s at -12 dB. |
 | **UI Button Hover** | `res://assets/sfx/impactSoft_medium_000.ogg` | Ogg | 0.12s | SFX | Ultra-subtle, low-frequency tactile tick providing quiet non-distracting button focus feedback. |
 | **UI Button Click / Select** | `res://assets/sfx/impactGeneric_light_002.ogg` | Ogg | 0.14s | SFX | Crisp, distinct tactile button confirmation click for Play, Credits, and Mute buttons. |
 | **Credits Navigation / Back**| `res://assets/sfx/impactGeneric_light_001.ogg` | Ogg | 0.12s | SFX | Light, clean dismissal click when closing the retro credits overlay. |
@@ -31,6 +32,7 @@ Comprehensive documentation of all 136 audio assets present in the project (`res
 - `res://assets/audio/NES_TheOldTowerInn.mp3` (100.96s, MP3) — **Assigned**: Normal Mode exploration BGM.
 - `res://assets/audio/into_the_ruined_temple.mp3` (146.75s, MP3) — **Assigned**: Eclipse Mode Shadow BGM.
 - `res://assets/audio/the_field_of_dreams.mp3` (84.64s, MP3) — **Assigned**: Main Menu Title Screen BGM.
+- `res://assets/audio/bombinsound-halloween-suspense-horror-halloween-waltz-619348.mp3` (65.78s, MP3) — **Assigned**: Level 2 Ending Final Conversation BGM.
 
 ### B. Discrete Puzzle & Magic Interaction Audio (`res://assets/sfx/`)
 - `res://assets/sfx/clank1.wav` (0.67s, WAV) — **Assigned**: Lever/mechanism activation.
