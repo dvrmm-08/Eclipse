@@ -63,7 +63,7 @@ func set_eclipse_mode(active: bool) -> void:
 	# In Normal mode: displays as void (5, 1) - seamless pitch black, blocks Wanderer (Layer 2)
 	# In Eclipse mode: displays as radiant cyan path (4, 1) - reveals path, Shadow walks across
 	if eclipse_paths_layer:
-		eclipse_paths_layer.visible = true
+		eclipse_paths_layer.visible = active
 		var bridge_atlas = Vector2i(4, 1) if active else Vector2i(5, 1)
 		for cell in _bridge_cells:
 			eclipse_paths_layer.set_cell(cell, 0, bridge_atlas)

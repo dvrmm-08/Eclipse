@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/timed_laser.gd" id="1_laser"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_beam"]
+size = Vector2(160, 8)
+
+[node name="TimedLaser" type="Node2D"]
+script = ExtResource("1_laser")
+
+[node name="LaserLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 160, 0)
+width = 4.0
+default_color = Color(1, 0.1, 0.15, 0.95)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="HazardArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea"]
+position = Vector2(80, 0)
+shape = SubResource("RectangleShape2D_beam")

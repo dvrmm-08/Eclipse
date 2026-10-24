@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://c6v2n7w8k3q1l"]
 
 [ext_resource type="Script" path="res://scripts/watcher_statue.gd" id="1_watch"]
-[ext_resource type="Texture2D" path="res://assets/interactables.png" id="2_texture"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/watcher_statue.png" id="2_texture"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_statue"]
-size = Vector2(24, 24)
+size = Vector2(24, 20)
 
 [node name="WatcherStatue" type="StaticBody2D"]
 collision_layer = 1
@@ -13,25 +13,12 @@ script = ExtResource("1_watch")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -16)
+position = Vector2(0, -24)
 texture = ExtResource("2_texture")
-hframes = 7
-frame = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -12)
+position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_statue")
 
 [node name="EyePoint" type="Marker2D" parent="."]
-position = Vector2(0, -22)
-
-[node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(0, -22)
-target_position = Vector2(0, 400)
-collision_mask = 5
-
-[node name="GazeLine" type="Line2D" parent="."]
-width = 6.0
-default_color = Color(1, 0.5, 0.2, 0.45)
-begin_cap_mode = 2
-end_cap_mode = 2
+position = Vector2(0, -36)
