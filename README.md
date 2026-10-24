@@ -1,72 +1,128 @@
 # ECLIPSE
 
-A 2D atmospheric pixel-art puzzle-horror game built in **Godot 4**.
+### Some shadows remember.
+
+*A 2D pixel-art exploration puzzle game about duality, ancient ruins, and a shadow that may not be entirely under your control.*
 
 ---
 
-## 🎮 Controls
+## About the Game
 
-| Action | Primary Key | Secondary Key |
-| :--- | :--- | :--- |
-| **Move Up** | `W` | `Up Arrow` |
-| **Move Down** | `S` | `Down Arrow` |
-| **Move Left** | `A` | `Left Arrow` |
-| **Move Right** | `D` | `Right Arrow` |
-| **The Eclipse Switch** | `P` | *Transfers control between Wanderer & Shadow* |
-| **Interact / Inspect** | `E` | *Inspect tablets, notes, pull levers, enter gates* |
-| **Restart Level** | `R` | *Quick level restart if needed* |
+**ECLIPSE** is a 2D pixel-art adventure built with Godot 4. Explore forgotten ruins, uncover hidden pathways, solve environmental puzzles, and discover the relationship between a lone Wanderer and its mysterious Shadow.
+
+The central mechanic lets you switch between two forms:
+
+- **The Wanderer:** Explore the world, navigate ancient ruins, and interact with objects.
+- **The Shadow:** Enter a mysterious alternate dimension, reveal hidden cyan pathways, and reach places that are otherwise inaccessible.
+
+But the Shadow comes with its own mysteries. As the journey progresses, the boundary between controlling the Shadow and being controlled by it begins to blur.
+
+## Features
+
+- **Dual-form gameplay:** Switch between the Wanderer and the Shadow to solve puzzles.
+- **Dimension switching:** Reveal hidden paths and experience a world transformed by Eclipse mode.
+- **Environmental puzzles:** Navigate voids, activate mechanisms, and unlock gates.
+- **Pixel-art environments:** Explore overgrown grasslands, ancient stone ruins, and mysterious pathways.
+- **Atmospheric storytelling:** Discover clues through inscriptions and environmental details.
+- **An evolving mystery:** Uncover hints that the Shadow may have intentions of its own.
+
+*Some mechanics and content are still under development.*
+
+## The Journey
+
+### Level 1 — AWAKENING
+
+The beginning of the journey.
+
+Learn to switch between the Wanderer and the Shadow, discover hidden cyan pathways, and activate an ancient mechanism to escape the ruins.
+
+**Status:** Completed and playable.
+
+### Level 2 — BLIND SPOT
+
+The ruins are no longer unguarded.
+
+Navigate watcher statues, avoid a timed laser, find a safe location to switch dimensions, and guide the Shadow across a hidden bridge.
+
+As the Wanderer approaches the exit, something unexpected begins to happen.
+
+**Status:** In development.
+
+### Beyond the Eclipse
+
+The story is designed to explore the growing independence of the Shadow. Future content will depend on the final scope of the project.
+
+## Controls
+
+| Input | Action |
+|---|---|
+| `W` `A` `S` `D` | Move |
+| `P` | Switch between the Wanderer and Shadow |
+| `E` | Interact with objects |
+| `R` | Restart the current level |
+
+*Controls may vary slightly as development continues.*
+
+## Getting Started
+
+### Requirements
+
+- [Godot Engine 4.x](https://godotengine.org/)
+- Git, if cloning the repository
+
+### Run Locally
+
+1. Clone this repository:
+
+   ```bash
+   git clone <YOUR_REPOSITORY_URL>
+   ```
+
+2. Open Godot.
+3. Select **Import** and navigate to the cloned project folder.
+4. Open the project's `project.godot` file.
+5. Press `F5` to run the game.
+
+To test an individual level, open its scene in Godot and press `F6`.
+
+## Built With
+
+- **Godot Engine 4** — Game engine
+- **GDScript** — Gameplay logic and interactions
+- **Pixel Art** — Characters, environments, and visual effects
+- **Git & GitHub** — Version control and project development
+
+## Development Approach
+
+ECLIPSE is being developed incrementally, with an emphasis on making each level playable and understandable before expanding the game's scope.
+
+The levels use editable Godot scenes and TileMapLayers so that environments, objects, puzzle elements, and collision layouts can be adjusted directly in the editor.
+
+Current development priorities include:
+
+- Completing and validating watcher vision and laser mechanics.
+- Polishing the Level 2 puzzle and its ending sequence.
+- Improving the title screen, credits, and audio transitions.
+- Testing the complete player experience from the opening screen to the ending.
+
+## Credits & Attributions
+
+This project may use third-party assets, fonts, music, and sound effects. Their original creators and applicable licenses should be credited here as those assets are finalized.
+
+- **Game concept and development:** Deva Ram
+- **Game engine:** Godot Engine
+- **Additional assets:** See the relevant asset sources and license information.
+
+## Project Status
+
+ECLIPSE is an ongoing indie game development project.
+
+The current goal is to deliver a compact, polished, playable experience with distinctive mechanics, atmospheric presentation, and a memorable ending rather than expanding the game before its core systems are reliable.
+
+## License
+
+A license has not yet been specified for this repository. Until one is added, do not assume that the project's code or included assets are freely available for reuse or redistribution.
 
 ---
 
-## 🌒 Core Mechanics
-
-### 1. The Eclipse Switch (`P`)
-- **Normal World**: You control the ivory-robed **Wanderer**. The physical body can walk on grass, dirt, and stone flagstones, but cannot cross the bottomless dark void chasm.
-- **The Eclipse**: Pressing `P` summons the **Shadow** from the Wanderer's location. The physical body remains stationary at its exact coordinates, while control transfers to the Shadow form.
-- **Shared Coordinates**: The two forms occupy corresponding coordinates across dimensions. Neither form resets on switching, and neither form can accidentally bump into or push the other.
-- **Cyan Runic Bridges**: Dormant stone paths over the void ignite with radiant cyan glyphs in Eclipse mode, enabling the Shadow form to cross the chasm.
-
-### 2. The Shield of Flesh (Laser Physics)
-- Sinister gargoyle statues cast line-of-sight red laser beams.
-- The laser raycast queries **Solid Walls (Layer 1)** and **The Wanderer's Physical Body (Layer 3)**.
-- If the Shadow touches an unblocked laser beam, it is repelled back to the physical body.
-- When the stationary physical body is placed in the beam's line-of-sight, the raycast terminates directly on the body, shielding the cyan bridge behind it and creating a safe corridor for the Shadow.
-
----
-
-## 🗺️ Levels & Progression
-
-1. **Level 1 — Awakening**
-   - Introduces movement, tablets, and the Eclipse switch (`P`).
-   - A void chasm separates you from a heavy lever.
-   - Switch to Shadow, cross the radiant cyan bridge, pull the lever, switch back, and exit through the open gate.
-   - *Optional Note*: Hidden in the lower path: *"Use it carefully. It remembers."*
-
-2. **Level 2 — The Shield of Flesh**
-   - Introduces the red laser beam emitted by an ancient stone idol.
-   - Position the Wanderer to block the beam.
-   - Switch to Shadow, safely cross behind your physical body, and pull the mechanism.
-   - *The First Betrayal*: Upon switching back to your physical body, the Shadow refuses to return and takes a deliberate step toward you on its own.
-
-3. **Level 3 — Betrayal & Pursuit**
-   - A multi-stage trial with dual laser statues requiring dynamic repositioning of the physical body.
-   - Guide the Shadow across the bridges to activate the final seal.
-   - *The Pursuit*: Once the final mechanism is pulled, the Shadow breaks free and begins relentlessly pursuing the Wanderer. Sprint to the open gate to escape!
-
-4. **Epilogue — The Reflection**
-   - The opening ruins return, but the connection is permanent.
-   - When you move, your shadow moves in reverse. Press `R` to replay.
-
----
-
-## 🚀 How to Run the Game
-
-### In the Godot Editor
-1. Open **Godot 4.7+** and select `res://project.godot`.
-2. Press **F5** (or the **Play** button in the top-right corner).
-3. The game will launch directly into **Level 1**.
-
-### Via Terminal
-```powershell
-& "D:\Achievements\Godot_v4.7.2-stable_win64_console.exe" --path "D:\Achievements\Projects\Eclipse"
-```
+*Step into the light. Discover what waits in the dark.*
