@@ -1,0 +1,38 @@
+[gd_resource type="TileSet" format=3 uid="uid://g5q7pw1o8mto"]
+
+[ext_resource type="Texture2D" uid="uid://bb2tivhpeggmy" path="res://assets/environment/level1_tileset.png" id="1_n7wqp"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sj6l3"]
+texture = ExtResource("1_n7wqp")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:1/0 = 0
+2:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:1/0 = 0
+3:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:1/0 = 0
+4:1/0/physics_layer_2/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
+physics_layer_1/collision_layer = 18
+physics_layer_1/collision_mask = 0
+physics_layer_2/collision_layer = 2
+physics_layer_2/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_sj6l3")

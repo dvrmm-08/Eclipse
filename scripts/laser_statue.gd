@@ -4,6 +4,12 @@ extends StaticBody2D
 @export var max_distance: float = 600.0
 @export var is_active: bool = true
 
+# Timed laser properties
+@export var is_timed: bool = false
+@export var active_duration: float = 3.0
+@export var inactive_duration: float = 2.0
+@export var cycle_offset: float = 0.0
+
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var raycast: RayCast2D = $RayCast2D
 @onready var laser_line: Line2D = $LaserLine
@@ -11,6 +17,7 @@ extends StaticBody2D
 
 var shadow_ref: CharacterBody2D = null
 var wanderer_ref: CharacterBody2D = null
+var _timer: float = 0.0
 
 func _init_nodes() -> void:
 	if not raycast and has_node("RayCast2D"):
@@ -28,7 +35,7 @@ func _ready() -> void:
 	collision_mask = 0
 	
 	if raycast:
-		raycast.collision_mask = 5
+		raycast.collision_mask = 5 # Layer 1 (Walls) + Layer 3 (Wanderer Body)
 		raycast.collide_with_bodies = true
 		raycast.collide_with_areas = false
 		raycast.target_position = cast_direction.normalized() * max_distance
@@ -56,8 +63,17 @@ func _find_characters() -> void:
 			if s: shadow_ref = s
 			p = p.get_parent()
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	_init_nodes()
+
+	# Process timed cycle if enabled
+	if is_timed:
+		_timer += delta
+		var total_cycle = active_duration + inactive_duration
+		if total_cycle > 0.0:
+			var current_time = fmod(_timer + cycle_offset, total_cycle)
+			is_active = (current_time < active_duration)
+
 	if not is_active:
 		if laser_line:
 			laser_line.visible = false
@@ -67,6 +83,7 @@ func _physics_process(_delta: float) -> void:
 		return
 		
 	laser_line.visible = true
+	raycast.target_position = cast_direction.normalized() * max_distance
 	raycast.force_raycast_update()
 	
 	var start_pos = emitter_point.global_position

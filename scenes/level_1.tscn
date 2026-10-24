@@ -1,33 +1,131 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=4 uid="uid://b3e3hrqvxrn42"]
 
-[ext_resource type="Script" path="res://scripts/level_1.gd" id="1_level1"]
-[ext_resource type="Script" path="res://scripts/level_grid.gd" id="2_grid"]
-[ext_resource type="PackedScene" path="res://scenes/interactable.tscn" id="3_inter"]
-[ext_resource type="PackedScene" path="res://scenes/wanderer.tscn" id="4_wanderer"]
-[ext_resource type="PackedScene" path="res://scenes/shadow.tscn" id="5_shadow"]
-[ext_resource type="PackedScene" path="res://scenes/ui_overlay.tscn" id="6_ui"]
+[ext_resource type="Script" uid="uid://bhps3n4aspvdx" path="res://scripts/level_1.gd" id="1_7gny6"]
+[ext_resource type="Script" uid="uid://b16k4y5coiuk" path="res://scripts/level_grid.gd" id="2_2aecg"]
+[ext_resource type="TileSet" uid="uid://g5q7pw1o8mto" path="res://assets/environment/level_tileset.tres" id="3_6dial"]
+[ext_resource type="PackedScene" path="res://scenes/props/tree.tscn" id="4_7nomh"]
+[ext_resource type="PackedScene" path="res://scenes/props/bush.tscn" id="5_1s4pk"]
+[ext_resource type="PackedScene" path="res://scenes/props/rock.tscn" id="6_x2xxo"]
+[ext_resource type="PackedScene" path="res://scenes/interactable.tscn" id="7_2cbcq"]
+[ext_resource type="PackedScene" uid="uid://cqij6o2d116u0" path="res://scenes/wanderer.tscn" id="9_so66j"]
+[ext_resource type="PackedScene" path="res://scenes/shadow.tscn" id="11_d5akn"]
+[ext_resource type="PackedScene" path="res://scenes/ui_overlay.tscn" id="12_wbtxt"]
 
-[node name="Level1" type="Node2D"]
-script = ExtResource("1_level1")
+[node name="Level1" type="Node2D" unique_id=287580398]
+script = ExtResource("1_7gny6")
 
-[node name="LevelGrid" type="Node2D" parent="."]
-script = ExtResource("2_grid")
+[node name="LevelGrid" type="Node2D" parent="." unique_id=307127498]
+script = ExtResource("2_2aecg")
 
-[node name="Objects" type="Node2D" parent="."]
+[node name="Ground" type="TileMapLayer" parent="LevelGrid" unique_id=1988628970]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAALAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAARAAAAAAAAAAAAAAASAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAABAAAAAAACAAEAAAABAAAAAAADAAEAAAABAAAAAAAEAAEAAAABAAAAAAAFAAEAAAABAAAAAAAHAAEAAAABAAAAAAAKAAEAAAAGAAAAAAALAAEAAAAGAAAAAAAMAAEAAAAGAAAAAAANAAEAAAAGAAAAAAAOAAEAAAAGAAAAAAARAAEAAAABAAAAAAASAAEAAAABAAAAAAATAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAACAAAAAAACAAIAAAACAAAAAAADAAIAAAACAAAAAAAEAAIAAAACAAAAAAAFAAIAAAACAAAAAAAGAAIAAAACAAAAAAAHAAIAAAACAAAAAAAKAAIAAAAGAAAAAAALAAIAAAAGAAAAAAARAAIAAAACAAAAAAASAAIAAAAGAAAAAAATAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAADAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAAFAAMAAAAEAAAAAAAGAAMAAAADAAAAAAAHAAMAAAAFAAAAAAARAAMAAAAAAAAAAAASAAMAAAADAAAAAAATAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAABAAAAAAACAAQAAAADAAAAAAADAAQAAAAFAAAAAAAEAAQAAAAEAAAAAAAFAAQAAAADAAAAAAAGAAQAAAAFAAAAAAAHAAQAAAAEAAAAAAARAAQAAAABAAAAAAASAAQAAAAFAAAAAAATAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAUAAAACAAAAAAACAAUAAAAFAAAAAAADAAUAAAAEAAAAAAAEAAUAAAADAAAAAAAFAAUAAAAFAAAAAAAGAAUAAAAEAAAAAAAHAAUAAAADAAAAAAARAAUAAAACAAAAAAASAAUAAAAEAAAAAAATAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAABAAYAAAAAAAAAAAACAAYAAAAEAAAAAAADAAYAAAADAAAAAAAEAAYAAAAFAAAAAAAFAAYAAAAEAAAAAAAGAAYAAAADAAAAAAAHAAYAAAAFAAAAAAARAAYAAAAAAAAAAAASAAYAAAADAAAAAAATAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAABAAcAAAABAAAAAAACAAcAAAABAAAAAAADAAcAAAABAAAAAAAEAAcAAAAGAAAAAAAFAAcAAAADAAAAAAAGAAcAAAAFAAAAAAAHAAcAAAAEAAAAAAARAAcAAAABAAAAAAASAAcAAAAFAAAAAAATAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAABAAgAAAACAAAAAAACAAgAAAACAAAAAAADAAgAAAACAAAAAAAEAAgAAAACAAAAAAAFAAgAAAAFAAAAAAAGAAgAAAAEAAAAAAAHAAgAAAADAAAAAAARAAgAAAACAAAAAAASAAgAAAAEAAAAAAATAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAABAAkAAAAAAAAAAAACAAkAAAAAAAAAAAADAAkAAAAAAAAAAAAEAAkAAAAAAAAAAAAFAAkAAAAEAAAAAAAGAAkAAAADAAAAAAAHAAkAAAAFAAAAAAAIAAkAAAAEAAAAAAAJAAkAAAADAAAAAAAKAAkAAAAFAAAAAAALAAkAAAAEAAAAAAAMAAkAAAADAAAAAAANAAkAAAAFAAAAAAAOAAkAAAAEAAAAAAAPAAkAAAADAAAAAAAQAAkAAAAFAAAAAAARAAkAAAAEAAAAAAASAAkAAAAAAAAAAAATAAkAAAAAAAAAAAAAAAoAAAAAAAAAAAABAAoAAAABAAAAAAACAAoAAAAAAAAAAAADAAoAAAABAAAAAAAEAAoAAAABAAAAAAAFAAoAAAABAAAAAAAGAAoAAAABAAAAAAAHAAoAAAABAAAAAAAIAAoAAAADAAAAAAAJAAoAAAAFAAAAAAAKAAoAAAAEAAAAAAALAAoAAAADAAAAAAAMAAoAAAAFAAAAAAANAAoAAAAEAAAAAAAOAAoAAAADAAAAAAAPAAoAAAAFAAAAAAAQAAoAAAABAAAAAAARAAoAAAABAAAAAAASAAoAAAABAAAAAAATAAoAAAAAAAAAAAAAAAsAAAAAAAAAAAABAAsAAAAAAAAAAAACAAsAAAAAAAAAAAADAAsAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAsAAAAAAAAAAAAGAAsAAAAAAAAAAAAHAAsAAAAAAAAAAAAIAAsAAAAAAAAAAAAJAAsAAAAAAAAAAAAKAAsAAAAAAAAAAAALAAsAAAAAAAAAAAAMAAsAAAAAAAAAAAANAAsAAAAAAAAAAAAOAAsAAAAAAAAAAAAPAAsAAAAAAAAAAAAQAAsAAAAAAAAAAAARAAsAAAAAAAAAAAASAAsAAAAAAAAAAAATAAsAAAAAAAAAAAAPAAEAAAACAAEAAAAQAAEAAAACAAEAAAAOAAUAAAACAAEAAAAOAAYAAAACAAEAAAANAAYAAAACAAEAAAANAAUAAAACAAEAAAA=")
+tile_set = ExtResource("3_6dial")
 
-[node name="Gate" parent="Objects" instance=ExtResource("3_inter")]
+[node name="Walls" type="TileMapLayer" parent="LevelGrid" unique_id=781609482]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAADAAAAAAAAAAEAAAAEAAAAAAAAAAEAAAAFAAAAAAAAAAEAAAAGAAAAAAAAAAEAAAAHAAAAAAAAAAEAAAAIAAAAAAAAAAEAAAAJAAAAAAAAAAEAAAAKAAAAAAAAAAEAAAALAAAAAAAAAAEAAAAMAAAAAAAAAAEAAAANAAAAAAAAAAEAAAAOAAAAAAAAAAEAAAAPAAAAAAAAAAEAAAAQAAAAAAAAAAEAAAARAAAAAAAAAAEAAAASAAAAAAAAAAEAAAATAAAAAAAAAAEAAAAAAAEAAAAAAAEAAAATAAEAAAAAAAEAAAAAAAIAAAAAAAEAAAATAAIAAAAAAAEAAAAAAAMAAAAAAAEAAAATAAMAAAAAAAEAAAAAAAQAAAAAAAEAAAATAAQAAAAAAAEAAAAAAAUAAAAAAAEAAAATAAUAAAAAAAEAAAAAAAYAAAAAAAEAAAATAAYAAAAAAAEAAAAAAAcAAAAAAAEAAAATAAcAAAAAAAEAAAAAAAgAAAAAAAEAAAATAAgAAAAAAAEAAAAAAAkAAAAAAAEAAAATAAkAAAAAAAEAAAAAAAoAAAAAAAEAAAACAAoAAAABAAEAAAATAAoAAAAAAAEAAAAAAAsAAAAAAAEAAAABAAsAAAAAAAEAAAACAAsAAAAAAAEAAAADAAsAAAAAAAEAAAAEAAsAAAAAAAEAAAAFAAsAAAAAAAEAAAAGAAsAAAAAAAEAAAAHAAsAAAAAAAEAAAAIAAsAAAAAAAEAAAAJAAsAAAAAAAEAAAAKAAsAAAAAAAEAAAALAAsAAAAAAAEAAAAMAAsAAAAAAAEAAAANAAsAAAAAAAEAAAAOAAsAAAAAAAEAAAAPAAsAAAAAAAEAAAAQAAsAAAAAAAEAAAARAAsAAAAAAAEAAAASAAsAAAAAAAEAAAATAAsAAAAAAAEAAAABAAAAAAAAAAEAAAACAAAAAAAAAAEAAAAAAAAAAAAAAAEAAAA=")
+tile_set = ExtResource("3_6dial")
 
-[node name="Lever" parent="Objects" instance=ExtResource("3_inter")]
+[node name="Void" type="TileMapLayer" parent="LevelGrid" unique_id=78920572]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAAQAAQAAAACAAEAAAAQAAUAAAACAAEAAAAQAAYAAAACAAEAAAAQAAEAAAADAAEAAAAIAAEAAAACAAEAAAAJAAEAAAACAAEAAAAIAAIAAAACAAEAAAAJAAIAAAACAAEAAAAIAAMAAAACAAEAAAAJAAMAAAACAAEAAAAIAAQAAAACAAEAAAAJAAQAAAACAAEAAAAIAAcAAAACAAEAAAAJAAcAAAACAAEAAAAIAAgAAAACAAEAAAAJAAgAAAACAAEAAAAKAAcAAAACAAEAAAAKAAgAAAACAAEAAAALAAcAAAACAAEAAAALAAgAAAACAAEAAAAMAAcAAAACAAEAAAANAAcAAAACAAEAAAAOAAcAAAACAAEAAAAPAAcAAAACAAEAAAAQAAcAAAACAAEAAAAQAAgAAAACAAEAAAAPAAgAAAACAAEAAAAOAAgAAAACAAEAAAANAAgAAAACAAEAAAAMAAgAAAACAAEAAAAMAAUAAAACAAEAAAAMAAYAAAACAAEAAAAMAAQAAAACAAEAAAAMAAMAAAACAAEAAAAMAAIAAAACAAEAAAANAAIAAAACAAEAAAANAAMAAAACAAEAAAANAAQAAAACAAEAAAAOAAQAAAACAAEAAAAOAAMAAAACAAEAAAAOAAIAAAACAAEAAAAPAAIAAAACAAEAAAAQAAIAAAACAAEAAAAQAAMAAAACAAEAAAAPAAMAAAACAAEAAAAPAAQAAAACAAEAAAAPAAUAAAACAAEAAAAPAAYAAAACAAEAAAAPAAEAAAADAAEAAAAIAAUAAAAEAAEAAAAIAAYAAAAEAAEAAAAJAAUAAAAEAAEAAAAJAAYAAAAEAAEAAAAKAAYAAAAEAAEAAAAKAAUAAAAEAAEAAAALAAUAAAAEAAEAAAALAAYAAAAEAAEAAAALAAQAAAAEAAEAAAAKAAQAAAAEAAEAAAAKAAMAAAAEAAEAAAALAAMAAAAEAAEAAAA=")
+tile_set = ExtResource("3_6dial")
 
-[node name="Tablet" parent="Objects" instance=ExtResource("3_inter")]
+[node name="EclipsePaths" type="TileMapLayer" parent="LevelGrid" unique_id=467728623]
+visible = false
+texture_filter = 1
+tile_map_data = PackedByteArray("AAAKAAMAAAAEAAEAAAALAAMAAAAEAAEAAAAKAAQAAAAEAAEAAAALAAQAAAAEAAEAAAAIAAUAAAAEAAEAAAAJAAUAAAAEAAEAAAAKAAUAAAAEAAEAAAALAAUAAAAEAAEAAAA=")
+tile_set = ExtResource("3_6dial")
 
-[node name="Note" parent="Objects" instance=ExtResource("3_inter")]
+[node name="Decoration" type="TileMapLayer" parent="LevelGrid" unique_id=547958090]
+texture_filter = 1
+tile_set = ExtResource("3_6dial")
 
-[node name="Wanderer" parent="." instance=ExtResource("4_wanderer")]
+[node name="Props" type="Node2D" parent="." unique_id=2111782492]
+y_sort_enabled = true
 
-[node name="Shadow" parent="." instance=ExtResource("5_shadow")]
+[node name="Tree_1" parent="Props" unique_id=665929265 instance=ExtResource("4_7nomh")]
+position = Vector2(53, 242)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Tree_2" parent="Props" unique_id=1647530718 instance=ExtResource("4_7nomh")]
+position = Vector2(103, 66)
+
+[node name="Tree_3" parent="Props" unique_id=1601490377 instance=ExtResource("4_7nomh")]
+position = Vector2(209, 86)
+
+[node name="Tree_4" parent="Props" unique_id=1678988270 instance=ExtResource("4_7nomh")]
+position = Vector2(559, 120)
+
+[node name="Tree_5" parent="Props" unique_id=611373987 instance=ExtResource("4_7nomh")]
+position = Vector2(192, 354)
+
+[node name="Tree_7" parent="Props" unique_id=188397240 instance=ExtResource("4_7nomh")]
+position = Vector2(50, 115)
+
+[node name="Tree_6" parent="Props" unique_id=1888021326 instance=ExtResource("4_7nomh")]
+position = Vector2(559, 279)
+
+[node name="Bush_1" parent="Props" unique_id=1577729940 instance=ExtResource("5_1s4pk")]
+position = Vector2(77, 81)
+
+[node name="Bush_2" parent="Props" unique_id=538220208 instance=ExtResource("5_1s4pk")]
+position = Vector2(105, 114)
+
+[node name="Bush_3" parent="Props" unique_id=578767153 instance=ExtResource("5_1s4pk")]
+position = Vector2(48, 272)
+
+[node name="Bush_4" parent="Props" unique_id=917215887 instance=ExtResource("5_1s4pk")]
+position = Vector2(123, 304)
+
+[node name="Bush_5" parent="Props" unique_id=305499458 instance=ExtResource("5_1s4pk")]
+position = Vector2(593, 315)
+
+[node name="Bush_6" parent="Props" unique_id=1095501632 instance=ExtResource("5_1s4pk")]
+position = Vector2(551, 342)
+
+[node name="Rock_1" parent="Props" unique_id=229045696 instance=ExtResource("6_x2xxo")]
+position = Vector2(230, 249)
+
+[node name="Rock_5" parent="Props" unique_id=587531575 instance=ExtResource("6_x2xxo")]
+position = Vector2(138, 172)
+
+[node name="Rock_2" parent="Props" unique_id=1306010090 instance=ExtResource("6_x2xxo")]
+position = Vector2(245, 53)
+
+[node name="Rock_3" parent="Props" unique_id=1443623120 instance=ExtResource("6_x2xxo")]
+position = Vector2(568, 193)
+
+[node name="Rock_4" parent="Props" unique_id=1134920264 instance=ExtResource("6_x2xxo")]
+position = Vector2(254, 346)
+
+[node name="Objects" type="Node2D" parent="." unique_id=281510481]
+
+[node name="Gate" parent="Objects" unique_id=2133660660 instance=ExtResource("7_2cbcq")]
+position = Vector2(592, 80)
+type = 3
+
+[node name="Lever" parent="Objects" unique_id=910071222 node_paths=PackedStringArray("target_gate") instance=ExtResource("7_2cbcq")]
+position = Vector2(336, 48)
+type = 2
+target_gate = NodePath("../Gate")
+
+[node name="Tablet" parent="Objects" unique_id=1823792200 instance=ExtResource("7_2cbcq")]
+position = Vector2(144, 240)
+message = "\"It's too far, right? Try pressing P.\""
+
+[node name="Note" parent="Objects" unique_id=2032613584 instance=ExtResource("7_2cbcq")]
+position = Vector2(461, 45)
+type = 1
+message = "\"Use it carefully. It remembers.\""
+
+[node name="Wanderer" parent="." unique_id=32041508 instance=ExtResource("9_so66j")]
+position = Vector2(82, 307)
+
+[node name="Shadow" parent="." unique_id=1022625734 instance=ExtResource("11_d5akn")]
+position = Vector2(112, 176)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=427344674]
 position = Vector2(320, 192)
 
-[node name="UIOverlay" parent="." instance=ExtResource("6_ui")]
+[node name="UIOverlay" parent="." unique_id=324913724 instance=ExtResource("12_wbtxt")]

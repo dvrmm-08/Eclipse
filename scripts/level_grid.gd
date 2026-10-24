@@ -1,113 +1,79 @@
 extends Node2D
 
-# Preloaded genuine pixel-art environment textures
-const TEX_GRASS_1 = preload("res://assets/environment/grass/grass_1.png")
-const TEX_GRASS_2 = preload("res://assets/environment/grass/grass_2.png")
-const TEX_GRASS_3 = preload("res://assets/environment/grass/grass_3.png")
-const TEX_GRASS_DARK = preload("res://assets/environment/grass/grass_dark.png")
+# ═════════════════════════════════════════════════════════════════════════════
+# ECLIPSE — Level Grid System
+# Controls the editable TileMapLayers:
+#   - Ground: Walkable grass, dirt, stone floor (No collision)
+#   - Walls: Solid stone masonry (Physics Layer 0 = Layer 1 Solid_Walls)
+#   - Void: Deep chasm (Physics Layer 1 = Layer 18: Blocks Wanderer & Shadow)
+#   - EclipsePaths: Hidden cyan bridge (Physics Layer 2 = Layer 2: Blocks Wanderer,
+#                   walkable by Shadow)
+#   - Decoration: Scenic floor details
+# ═════════════════════════════════════════════════════════════════════════════
 
-const TEX_DIRT_1 = preload("res://assets/environment/dirt/dirt_1.png")
-const TEX_DIRT_2 = preload("res://assets/environment/dirt/dirt_2.png")
-const TEX_DIRT_3 = preload("res://assets/environment/dirt/dirt_3.png")
-const TEX_DIRT_DARK = preload("res://assets/environment/dirt/dirt_dark.png")
+@onready var ground_layer: TileMapLayer = get_node_or_null("Ground")
+@onready var walls_layer: TileMapLayer = get_node_or_null("Walls")
+@onready var void_layer: TileMapLayer = get_node_or_null("Void")
+@onready var eclipse_paths_layer: TileMapLayer = get_node_or_null("EclipsePaths")
+@onready var decoration_layer: TileMapLayer = get_node_or_null("Decoration")
 
-const TEX_STONE_FLOOR = preload("res://assets/environment/stone/stone_floor_1.png")
-const TEX_STONE_FLOOR_DARK = preload("res://assets/environment/stone/stone_floor_dark.png")
-const TEX_STONE_WALL = preload("res://assets/environment/stone/stone_wall.png")
-const TEX_STONE_PILLAR = preload("res://assets/environment/stone/stone_pillar.png")
+var _bridge_cells: Array[Vector2i] = []
 
-const TEX_VOID_NORMAL = preload("res://assets/environment/void/void_normal.png")
-const TEX_VOID_ECLIPSE = preload("res://assets/environment/eclipse/void_eclipse.png")
-const TEX_CYAN_PATH = preload("res://assets/environment/eclipse/cyan_path.png")
+func _ready() -> void:
+	_get_layers()
+	_setup_layers()
+	set_eclipse_mode(false)
 
-var void_sprites: Array[Sprite2D] = []
-var bridge_sprites: Array[Sprite2D] = []
-var terrain_records: Array[Dictionary] = []
+func _get_layers() -> void:
+	if not void_layer and has_node("Void"):
+		void_layer = $Void
+	if not eclipse_paths_layer and has_node("EclipsePaths"):
+		eclipse_paths_layer = $EclipsePaths
+	if not ground_layer and has_node("Ground"):
+		ground_layer = $Ground
+	if not walls_layer and has_node("Walls"):
+		walls_layer = $Walls
+	if not decoration_layer and has_node("Decoration"):
+		decoration_layer = $Decoration
 
-func build_map(layout: Array[String]) -> void:
-	for child in get_children():
-		child.queue_free()
-		
-	void_sprites.clear()
-	bridge_sprites.clear()
-	terrain_records.clear()
-	
-	for y in range(layout.size()):
-		var row = layout[y]
-		for x in range(row.length()):
-			var char_tile = row[x]
-			var pos = Vector2(x * 32 + 16, y * 32 + 16)
-			_spawn_tile(char_tile, pos, x, y)
+func _setup_layers() -> void:
+	# Ensure physics collision is enabled on the layers that need collision
+	if void_layer:
+		void_layer.collision_enabled = true
+	if walls_layer:
+		walls_layer.collision_enabled = true
+	if eclipse_paths_layer:
+		eclipse_paths_layer.collision_enabled = true
 
-func _spawn_tile(ch: String, pos: Vector2, gx: int, gy: int) -> void:
-	var sprite = Sprite2D.new()
-	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	sprite.position = pos
-	
-	var col_layer: int = 0
-	
-	match ch:
-		'#': # Mossy Stone Wall
-			sprite.texture = TEX_STONE_WALL
-			col_layer = 1 # Solid_Walls
-		'P': # Ancient Pillar
-			sprite.texture = TEX_STONE_PILLAR
-			col_layer = 1 # Solid_Walls
-		'~': # Deep Void Chasm
-			sprite.texture = TEX_VOID_NORMAL
-			col_layer = 18 # Layer 2 (Void_Chasm) + Layer 5 (Void_Shadow_Barrier)
-			void_sprites.append(sprite)
-		'=': # Hidden Cyan Bridge
-			# In normal world, hidden path appears identical to void
-			sprite.texture = TEX_VOID_NORMAL
-			col_layer = 2 # Layer 2 ONLY (Void_Chasm) - Wanderer blocked, Shadow walks!
-			bridge_sprites.append(sprite)
-		',': # Grass (3 natural variants)
-			var variant = (gx * 3 + gy * 7) % 3
-			var norm_tex = TEX_GRASS_1
-			if variant == 1: norm_tex = TEX_GRASS_2
-			elif variant == 2: norm_tex = TEX_GRASS_3
-			sprite.texture = norm_tex
-			terrain_records.append({"sprite": sprite, "normal": norm_tex, "dark": TEX_GRASS_DARK})
-		':': # Dirt Path (3 natural variants)
-			var d_var = (gx * 5 + gy * 11) % 3
-			var d_tex = TEX_DIRT_1
-			if d_var == 1: d_tex = TEX_DIRT_2
-			elif d_var == 2: d_tex = TEX_DIRT_3
-			sprite.texture = d_tex
-			terrain_records.append({"sprite": sprite, "normal": d_tex, "dark": TEX_DIRT_DARK})
-		'.': # Stone Floor
-			sprite.texture = TEX_STONE_FLOOR
-			terrain_records.append({"sprite": sprite, "normal": TEX_STONE_FLOOR, "dark": TEX_STONE_FLOOR_DARK})
-		' ': # Open void
-			sprite.texture = TEX_VOID_NORMAL
-			col_layer = 18
-			void_sprites.append(sprite)
-			
-	add_child(sprite)
-	
-	if col_layer > 0:
-		var body = StaticBody2D.new()
-		body.position = pos
-		body.collision_layer = col_layer
-		body.collision_mask = 0
-		
-		var shape = CollisionShape2D.new()
-		var rect = RectangleShape2D.new()
-		rect.size = Vector2(32, 32)
-		shape.shape = rect
-		body.add_child(shape)
-		add_child(body)
+		# Record bridge cells authored by the designer
+		_bridge_cells = eclipse_paths_layer.get_used_cells()
+
+		# Ensure void layer does not place solid void barrier (Layer 18)
+		# under the bridge, so the Shadow can walk on the bridge (Layer 2)
+		if void_layer:
+			for cell in _bridge_cells:
+				void_layer.erase_cell(cell)
 
 func set_eclipse_mode(active: bool) -> void:
-	# 1. Void tiles shift between near-black and deep crimson red
-	for s in void_sprites:
-		s.texture = TEX_VOID_ECLIPSE if active else TEX_VOID_NORMAL
-		
-	# 2. Cyan bridges ignite with luminous bright cyan or disappear into void
-	for s in bridge_sprites:
-		s.texture = TEX_CYAN_PATH if active else TEX_VOID_NORMAL
-		
-	# 3. Ground terrain becomes darkened/subdued in Eclipse
-	for rec in terrain_records:
-		rec.sprite.texture = rec.dark if active else rec.normal
+	_get_layers()
+
+	# 1. Reveal or hide the glowing cyan bridge
+	# When hidden (Normal mode), collision on Layer 2 remains active, blocking the Wanderer.
+	# When visible (Eclipse mode), Shadow (whose mask ignores Layer 2) walks across.
+	if eclipse_paths_layer:
+		eclipse_paths_layer.visible = active
+
+	# 2. Swap Void tiles between near-black (2, 1) and glowing crimson (3, 1)
+	if void_layer:
+		var target_coords = Vector2i(3, 1) if active else Vector2i(2, 1)
+		for cell in void_layer.get_used_cells():
+			void_layer.set_cell(cell, 0, target_coords)
+
+	# 3. Darken or restore ground & walls for Eclipse dimension atmosphere
+	var terrain_tint = Color(0.42, 0.42, 0.52, 1.0) if active else Color(1.0, 1.0, 1.0, 1.0)
+	if ground_layer:
+		ground_layer.modulate = terrain_tint
+	if walls_layer:
+		walls_layer.modulate = terrain_tint
+	if decoration_layer:
+		decoration_layer.modulate = terrain_tint
