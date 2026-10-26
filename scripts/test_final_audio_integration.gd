@@ -71,10 +71,17 @@ func _init() -> void:
 		await process_frame
 		await physics_frame
 
+	if current_scene != null and current_scene.name == "StoryIntro":
+		current_scene.skip_intro()
+		var elapsed = 0.0
+		while elapsed < 2.0 and current_scene.name == "StoryIntro":
+			await create_timer(0.05).timeout
+			elapsed += 0.05
+
 	var lvl1 = current_scene
 	var p2_ok = false
 	if audio_mgr and lvl1:
-		p2_ok = (lvl1.level_title == "LEVEL 1" and 
+		p2_ok = (lvl1.get("level_title") == "LEVEL 1" and 
 				 audio_mgr.current_mode != audio_mgr.MusicMode.MENU and
 				 audio_mgr.active_player.stream != audio_mgr.stream_menu)
 	record("2. Starting the game stops/fades out menu music", p2_ok,

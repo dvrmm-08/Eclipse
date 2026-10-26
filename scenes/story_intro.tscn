@@ -1,0 +1,228 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/story_intro.gd" id="1_intro"]
+[ext_resource type="FontFile" path="res://assets/fonts/PressStart2P-Regular.ttf" id="2_pressstart"]
+[ext_resource type="FontFile" path="res://assets/fonts/Silkscreen-Regular.ttf" id="3_silkscreen"]
+[ext_resource type="Texture2D" path="res://assets/story/intro_page1.png" id="4_page1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tome"]
+bg_color = Color(0.045, 0.055, 0.1, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.83, 0.69, 0.22, 0.85)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0, 0, 0, 0.8)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_img_frame"]
+bg_color = Color(0.02, 0.03, 0.06, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.75, 0.62, 0.22, 0.7)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.06, 0.08, 0.14, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.75, 0.62, 0.25, 0.8)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+
+[node name="StoryIntro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_intro")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.025, 0.035, 0.07, 1)
+
+[node name="Starfield" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FrameContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TomePanel" type="PanelContainer" parent="FrameContainer"]
+custom_minimum_size = Vector2(570, 346)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tome")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FrameContainer/TomePanel"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="HeaderContainer" type="VBoxContainer" parent="FrameContainer/TomePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 3
+alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="FrameContainer/TomePanel/VBoxContainer/HeaderContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.72, 0.35, 0.9)
+theme_override_fonts/font = ExtResource("3_silkscreen")
+theme_override_font_sizes/font_size = 8
+text = "— CHRONICLE OF ECLIPSE —"
+horizontal_alignment = 1
+
+[node name="PageTitleLabel" type="Label" parent="FrameContainer/TomePanel/VBoxContainer/HeaderContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.88, 0.55, 1)
+theme_override_colors/font_shadow_color = Color(0.25, 0.18, 0.05, 0.8)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("2_pressstart")
+theme_override_font_sizes/font_size = 10
+text = "PAGE I : BEFORE THE ECLIPSE"
+horizontal_alignment = 1
+
+[node name="DividerLabel" type="Label" parent="FrameContainer/TomePanel/VBoxContainer/HeaderContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.58, 0.22, 0.8)
+theme_override_fonts/font = ExtResource("3_silkscreen")
+theme_override_font_sizes/font_size = 8
+text = "◆ ────────────── ❖ ────────────── ◆"
+horizontal_alignment = 1
+
+[node name="IllustrationBox" type="CenterContainer" parent="FrameContainer/TomePanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="IllustrationFrame" type="PanelContainer" parent="FrameContainer/TomePanel/VBoxContainer/IllustrationBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_img_frame")
+
+[node name="IllustrationTexture" type="TextureRect" parent="FrameContainer/TomePanel/VBoxContainer/IllustrationBox/IllustrationFrame"]
+texture_filter = 1
+custom_minimum_size = Vector2(240, 120)
+layout_mode = 2
+texture = ExtResource("4_page1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StoryTextContainer" type="MarginContainer" parent="FrameContainer/TomePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 2
+
+[node name="StoryTextLabel" type="Label" parent="FrameContainer/TomePanel/VBoxContainer/StoryTextContainer"]
+custom_minimum_size = Vector2(490, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.96, 0.92, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/line_spacing = 4
+theme_override_fonts/font = ExtResource("3_silkscreen")
+theme_override_font_sizes/font_size = 10
+text = "Once, the world existed in two reflections.
+
+One held everything we chose to remember.
+The other held everything we tried to forget."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="BottomDivider" type="Label" parent="FrameContainer/TomePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.58, 0.22, 0.75)
+theme_override_fonts/font = ExtResource("3_silkscreen")
+theme_override_font_sizes/font_size = 8
+text = "─── ◆ ───"
+horizontal_alignment = 1
+
+[node name="NavigationHBox" type="HBoxContainer" parent="FrameContainer/TomePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="BackButton" type="Button" parent="FrameContainer/TomePanel/VBoxContainer/NavigationHBox"]
+custom_minimum_size = Vector2(100, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.92, 0.85, 1)
+theme_override_fonts/font = ExtResource("3_silkscreen")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "[ ◄ BACK ]"
+
+[node name="PageDotsLabel" type="Label" parent="FrameContainer/TomePanel/VBoxContainer/NavigationHBox"]
+custom_minimum_size = Vector2(170, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.72, 0.35, 1)
+theme_override_fonts/font = ExtResource("3_silkscreen")
+theme_override_font_sizes/font_size = 9
+text = "[ I / IV ]  ● ○ ○ ○"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="Button" parent="FrameContainer/TomePanel/VBoxContainer/NavigationHBox"]
+custom_minimum_size = Vector2(120, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.92, 0.85, 1)
+theme_override_fonts/font = ExtResource("3_silkscreen")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "[ NEXT ► ]"
+
+[node name="SkipButton" type="Button" parent="FrameContainer/TomePanel"]
+custom_minimum_size = Vector2(90, 22)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.82, 0.75, 0.62, 0.9)
+theme_override_fonts/font = ExtResource("3_silkscreen")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "[ ESC: SKIP ]"
+
+[node name="FadeOverlay" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

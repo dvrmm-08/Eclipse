@@ -13,6 +13,7 @@ extends Control
 # ═════════════════════════════════════════════════════════════════════════════
 
 @export var creator_name: String = "Deva Ram" # Editable in Godot Inspector
+@export var intro_scene_path: String = "res://scenes/story_intro.tscn"
 @export var first_level_path: String = "res://scenes/level_1.tscn"
 
 @onready var play_button: Button = $UI/CenterContainer/MenuColumn/MenuContainer/PlayButton
@@ -120,10 +121,11 @@ func _on_play_pressed() -> void:
 			audio_mgr.play_ui_select()
 		audio_mgr.fade_out_music(0.5)
 
-	if ResourceLoader.exists(first_level_path):
-		get_tree().change_scene_to_file(first_level_path)
+	var target = intro_scene_path if (intro_scene_path != "" and ResourceLoader.exists(intro_scene_path)) else first_level_path
+	if ResourceLoader.exists(target):
+		get_tree().change_scene_to_file(target)
 	else:
-		push_error("Level 1 scene missing: " + first_level_path)
+		push_error("Starting scene missing: " + target)
 
 func _on_credits_pressed() -> void:
 	var audio_mgr = get_node_or_null("/root/AudioManager")

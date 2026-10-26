@@ -91,8 +91,15 @@ func _init() -> void:
 		await process_frame
 		await physics_frame
 
+	if current_scene != null and current_scene.name == "StoryIntro":
+		current_scene.skip_intro()
+		var elapsed = 0.0
+		while elapsed < 2.0 and current_scene.name == "StoryIntro":
+			await create_timer(0.05).timeout
+			elapsed += 0.05
+
 	var lvl1 = current_scene
-	var l1_loaded = (lvl1 != null and lvl1.level_title == "LEVEL 1")
+	var l1_loaded = (lvl1 != null and lvl1.get("level_title") == "LEVEL 1")
 	record("Play Button Transitions to Level 1", l1_loaded, "Successfully entered Level 1: %s" % (lvl1.name if lvl1 else "null"))
 
 	# ── TEST 9: Normal Mode Plays Cheerful Exploration Music ──

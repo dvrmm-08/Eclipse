@@ -47,9 +47,6 @@ tile_set = ExtResource("3_bv48q")
 [node name="Props" type="Node2D" parent="." unique_id=2047300554]
 y_sort_enabled = true
 
-[node name="Bush_1" parent="Props" unique_id=569953598 instance=ExtResource("4_k22d5")]
-position = Vector2(162, 112)
-
 [node name="Bush_3" parent="Props" unique_id=1279215314 instance=ExtResource("4_k22d5")]
 position = Vector2(526, 52)
 
@@ -57,7 +54,7 @@ position = Vector2(526, 52)
 position = Vector2(592, 212)
 
 [node name="Rock_1" parent="Props" unique_id=335749205 instance=ExtResource("5_k6a82")]
-position = Vector2(500, 192)
+position = Vector2(500, 133)
 
 [node name="Bush_2" parent="Props" unique_id=1379281034 instance=ExtResource("4_k22d5")]
 position = Vector2(48, 218)
@@ -72,7 +69,7 @@ position = Vector2(592, 64)
 position = Vector2(560, 341)
 
 [node name="Tree_3" parent="Props" unique_id=221589342 instance=ExtResource("6_1sb0y")]
-position = Vector2(500, 112)
+position = Vector2(500, 86)
 
 [node name="Rock_2" parent="Props" unique_id=146703566 instance=ExtResource("5_k6a82")]
 position = Vector2(592, 280)
@@ -102,7 +99,7 @@ rotation = 0.7853982
 position = Vector2(32, 181)
 
 [node name="Tablet" parent="Objects" unique_id=2033651592 instance=ExtResource("11_pc3at")]
-position = Vector2(172, 138)
+position = Vector2(172, 149)
 message = "Two eyes seek the flesh that stays.
 A red thread divides the way.
 Where their sightlines fail,
@@ -113,7 +110,7 @@ position = Vector2(102, 325)
 type = 3
 
 [node name="Mechanism" parent="Objects" unique_id=1985907700 node_paths=PackedStringArray("target_gate") instance=ExtResource("11_pc3at")]
-position = Vector2(560, 112)
+position = Vector2(544, 109)
 type = 2
 target_gate = NodePath("../Gate")
 
